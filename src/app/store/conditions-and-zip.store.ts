@@ -1,14 +1,15 @@
 import {signalStore, withState} from '@ngrx/signals';
 import {ConditionsAndZip} from '../model/conditions-and-zip.type';
 import {inject} from '@angular/core';
-import {LocationService} from '../location.service';
+import {LocationStorageService} from '../services/location-storage.service';
 
 export interface ConditionsAndZipState {
-    items: ConditionsAndZip[];
-    loading: boolean;
+    locations: ConditionsAndZip[];
 }
 
-export const initialState: ConditionsAndZipState = inject(LocationService).
+export const initialState: ConditionsAndZipState = {
+    locations: inject(LocationStorageService).getLocationsFromStorage()
+};
 
 export const ConditionsAndZipStore = signalStore(
     { providedIn: 'root' },
