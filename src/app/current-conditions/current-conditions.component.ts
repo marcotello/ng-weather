@@ -1,8 +1,8 @@
 import {Component, inject, Signal} from '@angular/core';
 import {WeatherService} from '../weather.service';
-import {LocationService} from '../location.service';
 import {Router} from '@angular/router';
 import {ConditionsAndZip} from '../model/conditions-and-zip.type';
+import {ConditionsAndZipStore} from '../store/conditions-and-zip.store';
 
 @Component({
   selector: 'app-current-conditions',
@@ -13,7 +13,8 @@ export class CurrentConditionsComponent {
 
   private readonly router = inject(Router);
   protected readonly weatherService = inject(WeatherService);
-  protected locationService = inject(LocationService);
+  // protected locationService = inject(LocationService);
+  protected readonly conditionsAndZipStore = inject(ConditionsAndZipStore);
   protected currentConditionsByZip: Signal<ConditionsAndZip[]> = this.weatherService.getCurrentConditions();
 
   showForecast(zipcode: string) {
