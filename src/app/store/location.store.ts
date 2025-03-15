@@ -20,13 +20,14 @@ const initialState: LocationState = {
 export const LocationStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
-    withMethods((store,
-                 locationStorageService = inject(LocationStorageService),
-                 weatherService = inject(WeatherService)) => ({
+    withMethods((store, locationStorageService = inject(LocationStorageService)) => ({
+        // private methods
         _loadAllLocations() {
             const locations = locationStorageService.getLocationsFromStorage();
             patchState(store, { locations });
-        },
+        }
+    })),
+    withMethods((store, weatherService = inject(WeatherService)) => ({
         addLocation: rxMethod<string>(
             pipe(
                 switchMap((zipcode) => {
@@ -42,7 +43,12 @@ export const LocationStore = signalStore(
                     );
                 })
             )
-        )
+        ),
+        removeLocation(zipcode: string) {
+            patchState(store, (state) => ({
+                locations: state.locations.filter((location) => location.zip !== zipcode)
+            }));
+        }
     })),
     withHooks({
         onInit(store, locationStorageService = inject(LocationStorageService)) {

@@ -13,7 +13,6 @@ export class CurrentConditionsComponent {
 
   private readonly router = inject(Router);
   protected readonly weatherService = inject(WeatherService);
-
   protected readonly locationStore = inject(LocationStore);
 
   protected currentConditionsByZip: Signal<ConditionsAndZip[]> = this.locationStore.locations;
