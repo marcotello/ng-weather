@@ -3,15 +3,17 @@ import {ConditionsAndZip} from '../model/conditions-and-zip.type';
 import {inject} from '@angular/core';
 import {LocationStorageService} from '../services/location-storage.service';
 import {rxMethod} from '@ngrx/signals/rxjs-interop';
+import {tapResponse} from '@ngrx/operators';
 import {WeatherService} from '../services/weather.service';
 import {pipe} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
+import {CurrentConditions} from '../model/current-conditions.type';
 
-export interface LocationState {
+interface LocationState {
     locations: ConditionsAndZip[];
 }
 
-export const initialState: LocationState = {
+const initialState: LocationState = {
     locations: []
 };
 
@@ -25,14 +27,17 @@ export const LocationStore = signalStore(
             const locations = locationStorageService.getLocationsFromStorage();
             patchState(store, { locations });
         },
-        addLocation: rxMethod<void>(
+        addLocation: rxMethod<string>(
             pipe(
-                switchMap(() => {
-                    return weatherService.getItems().pipe(
+                switchMap((zipcode) => {
+                    return weatherService.addCurrentConditions(zipcode).pipe(
                         tapResponse({
-                            next: (items) => patchState(store, { items }),
-                            error: console.error,
-                            finalize: () => patchState(store, { loading: false }),
+                            next: (currentConditions: CurrentConditions) => {
+                                patchState(store, (state) => ({
+                                    locations: [...state.locations, { zip: zipcode, data: currentConditions }]
+                                }));
+                            },
+                            error: (error) => console.error(error)
                         })
                     );
                 })

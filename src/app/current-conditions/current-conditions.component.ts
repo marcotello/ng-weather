@@ -13,8 +13,10 @@ export class CurrentConditionsComponent {
 
   private readonly router = inject(Router);
   protected readonly weatherService = inject(WeatherService);
-  protected readonly conditionsAndZipStore = inject(LocationStore);
-  protected currentConditionsByZip: Signal<ConditionsAndZip[]> = this.weatherService.getCurrentConditions();
+
+  protected readonly locationStore = inject(LocationStore);
+
+  protected currentConditionsByZip: Signal<ConditionsAndZip[]> = this.locationStore.locations;
 
   showForecast(zipcode: string) {
     this.router.navigate(['/forecast', zipcode])
