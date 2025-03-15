@@ -1,6 +1,6 @@
-import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
+import {patchState, signalStore, withHooks, withMethods, withState} from '@ngrx/signals';
 import {ConditionsAndZip} from '../model/conditions-and-zip.type';
-import {inject} from '@angular/core';
+import {effect, inject} from '@angular/core';
 import {LocationStorageService} from '../services/location-storage.service';
 import {rxMethod} from '@ngrx/signals/rxjs-interop';
 import {tapResponse} from '@ngrx/operators';
@@ -23,7 +23,7 @@ export const LocationStore = signalStore(
     withMethods((store,
                  locationStorageService = inject(LocationStorageService),
                  weatherService = inject(WeatherService)) => ({
-        loadAllLocations() {
+        _loadAllLocations() {
             const locations = locationStorageService.getLocationsFromStorage();
             patchState(store, { locations });
         },
@@ -43,5 +43,11 @@ export const LocationStore = signalStore(
                 })
             )
         )
-    }))
+    })),
+    withHooks({
+        onInit(store, locationStorageService = inject(LocationStorageService)) {
+            effect(() => locationStorageService.saveLocationsToStorage(store.locations()))
+            store._loadAllLocations()
+        }
+    })
 );

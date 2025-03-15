@@ -14,4 +14,8 @@ export class LocationStorageService {
   getLocationsFromStorage(): ConditionsAndZip[] {
     return this.storageService.get(LOCATIONS) || [];
   }
+
+  saveLocationsToStorage(locations: ConditionsAndZip[]): void {
+    this.storageService.set(LOCATIONS, locations);
+  }
 }
