@@ -1,6 +1,16 @@
 <div class="container-fluid">
 
-  <app-zipcode-entry> </app-zipcode-entry>
-  <app-current-conditions></app-current-conditions>
+    <app-zipcode-entry></app-zipcode-entry>
 
+    <div *ngIf="currentConditionsByZip().length > 0">
+        <app-tabs-container (closeTab)="removeLocation($event)">
+            <app-tab *ngFor="let location of currentConditionsByZip()"
+                     [tabId]="location.zip"
+                     [title]="location.data.name + ' (' + location.zip + ')'">
+
+                <app-current-conditions [location]="location" (navigateToForecast)="showForecast($event)">
+                </app-current-conditions>
+            </app-tab>
+        </app-tabs-container>
+    </div>
 </div>

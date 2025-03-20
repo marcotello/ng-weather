@@ -1,5 +1,4 @@
 import {Component, inject} from '@angular/core';
-import {LocationService} from '../services/location.service';
 import {LocationStore} from '../store/location.store';
 
 @Component({

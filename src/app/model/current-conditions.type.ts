@@ -12,6 +12,7 @@ export interface CurrentConditions {
     id:         number;
     name:       string;
     cod:        number;
+    weatherIcon?: string;
 }
 
 export interface Clouds {
