@@ -1,4 +1,4 @@
-import {Injectable, Signal, signal} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {HttpClient} from '@angular/common/http';
@@ -26,7 +26,7 @@ export class WeatherService {
 
   }
 
-  getWeatherIcon(id): string {
+  getWeatherIcon(id: number): string {
     if (id >= 200 && id <= 232) {
       return WeatherService.ICON_URL + 'art_storm.png';
     } else if (id >= 501 && id <= 511) {
