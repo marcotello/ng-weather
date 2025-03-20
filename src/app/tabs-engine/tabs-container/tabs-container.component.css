@@ -5,10 +5,11 @@
     cursor: pointer;
     height: 100%;
     border: 1px solid black;
+    border-bottom: none;
     padding: 4px 10px;
     background-color: #627b9a;
     color: white;
-    margin: 1px 1px;
+    margin: 0 1px;
 }
 
 .tabs-content {
