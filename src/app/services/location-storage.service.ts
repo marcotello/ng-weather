@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {StorageService} from './storage.service';
+import {StorageService} from '../generic-cache/storage.service';
 import {ConditionsAndZip} from '../model/conditions-and-zip.type';
 
 export const LOCATIONS = 'locations'
