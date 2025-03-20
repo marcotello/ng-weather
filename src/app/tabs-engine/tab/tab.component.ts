@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-tab',
@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './tab.component.css'
 })
 export class TabComponent {
-
+  @Input({ required: true }) tabId: string;
+  @Input({ required: true }) title: string;
+  @Input() isActive = false;
 }
