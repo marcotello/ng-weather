@@ -12,10 +12,10 @@ export class LocationStorageService {
   protected storageService = inject(StorageService<ConditionsAndZip>);
 
   getLocationsFromStorage(): ConditionsAndZip[] {
-    return this.storageService.get(LOCATIONS) || [];
+    return this.storageService.getItem(LOCATIONS) || [];
   }
 
   saveLocationsToStorage(locations: ConditionsAndZip[]): void {
-    this.storageService.set(LOCATIONS, locations);
+    this.storageService.setItem(LOCATIONS, locations);
   }
 }
