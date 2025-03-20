@@ -9,16 +9,11 @@ import {ConditionsAndZip} from '../model/conditions-and-zip.type';
 })
 export class CurrentConditionsComponent {
 
-  @Input({ required: true }) location: ConditionsAndZip;
+  @Input({required: true}) location: ConditionsAndZip;
 
   @Output() navigateToForecast: EventEmitter<string> = new EventEmitter<string>();
-  @Output() closeLocation: EventEmitter<string> = new EventEmitter<string>();
 
   showForecast(zip: string) {
     this.navigateToForecast.emit(zip);
-  }
-
-  removeLocation(zip: string) {
-    this.closeLocation.emit(zip);
   }
 }

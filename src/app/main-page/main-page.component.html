@@ -1,10 +1,16 @@
 <div class="container-fluid">
 
-  <app-zipcode-entry> </app-zipcode-entry>
-  <ng-container *ngFor="let location of currentConditionsByZip()">
-      <app-current-conditions [location]="location"
-                              (navigateToForecast)="showForecast($event)"
-                              (closeLocation)="removeLocation($event)">
-      </app-current-conditions>
-  </ng-container>
+    <app-zipcode-entry></app-zipcode-entry>
+
+    <div>
+        <app-tabs-container (closeTab)="removeLocation($event)">
+            <app-tab *ngFor="let location of currentConditionsByZip()"
+                     [tabId]="location.zip"
+                     [title]="location.data.name">
+
+                <app-current-conditions [location]="location" (navigateToForecast)="showForecast($event)">
+                </app-current-conditions>
+            </app-tab>
+        </app-tabs-container>
+    </div>
 </div>

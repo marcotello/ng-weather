@@ -1,1 +1,13 @@
-<ng-content></ng-content>
+<div class="tabs-header">
+    <div class="tab-header" *ngFor="let tab of tabs" (click)="selectTab(tab)">
+        <div class="tab-title">{{tab.title | titlecase}}</div>
+        <div class="close-btn">
+            <img src="assets/images/close2.svg" alt="X" (click)="close(tab.tabId)">
+        </div>
+    </div>
+</div>
+
+<div class="tabs-content">
+    <ng-content></ng-content>
+</div>
+
