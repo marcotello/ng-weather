@@ -8,6 +8,7 @@ import {WeatherService} from '../services/weather.service';
 import {pipe} from 'rxjs';
 import {mergeMap, switchMap} from 'rxjs/operators';
 import {CurrentConditions} from '../model/current-conditions.type';
+import {LocalStorageCacheService} from '../generic-cache/local-storage-cache.service';
 
 interface LocationState {
     locations: ConditionsAndZip[];
@@ -85,8 +86,26 @@ export const LocationStore = signalStore(
         },
     })),
     withHooks({
-        onInit(store, locationStorageService = inject(LocationStorageService)) {
+        onInit(store,
+               locationStorageService = inject(LocationStorageService),
+               localStorageCacheService = inject(LocalStorageCacheService)) {
             effect(() => locationStorageService.saveLocationsToStorage(store.locations()));
+
+            let previousZips: string[] = [];
+
+            effect(() => {
+                const currentZips = store.zipCodes();
+
+                const removedZips = previousZips.filter(zip => !currentZips.includes(zip));
+
+                for (const removedZip of removedZips) {
+                    const encodedZip = JSON.stringify([removedZip]);
+
+                    localStorageCacheService.removeCacheByPartialKeyName(encodedZip);
+                }
+
+                previousZips = [...currentZips];
+            });
 
             store.loadAllLocations();
         }

@@ -61,9 +61,16 @@ export class LocalStorageCacheService implements ICache {
     return keys.includes(key);
   }
 
-  getAllCacheKeyOcurrences(partialKey: string): string[] {
+  getAllCacheKeyOccurrences(partialKey: string): string[] {
     const keys = this.getAllCacheKeys();
     return keys.filter((key) => key.includes(partialKey));
+  }
+
+  removeCacheByPartialKeyName(partialKey: string): void {
+    const keysToRemove = this.getAllCacheKeyOccurrences(partialKey);
+    for (const key of keysToRemove) {
+      this.removeCache(key);
+    }
   }
 
   private isItemExpired<T>(value: CachedItem<T>): boolean {
