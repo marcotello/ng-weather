@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {StorageService} from './storage.service';
+import {StorageService} from '../services/storage.service';
 import {ExpirationTime} from './types/expiration-time.type';
 import {environment} from '../../environments/environment';
 import {CachedItem} from './types/cached-item.type';
