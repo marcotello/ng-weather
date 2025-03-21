@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {StorageService} from './storage.service';
 import {ConditionsAndZip} from '../current-conditions/conditions-and-zip.type';
-import {neverExpire} from '../generic-cache/types/no-expiration.type';
-import {LocalStorageCacheService} from '../generic-cache/local-storage-cache.service';
+// import {neverExpire} from '../generic-cache/types/no-expiration.type';
+// import {LocalStorageCacheService} from '../generic-cache/local-storage-cache.service';
 
 export const LOCATIONS = 'locations'
 

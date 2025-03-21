@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import {WeatherService} from '../services/weather.service';
-import {ActivatedRoute} from '@angular/router';
+import {Component, inject, Signal} from '@angular/core';
 import {Forecast} from './forecast.type';
+import {ForecastStore} from '../store/forecast.store';
 
 @Component({
   selector: 'app-forecasts-list',
@@ -10,14 +9,8 @@ import {Forecast} from './forecast.type';
 })
 export class ForecastsListComponent {
 
-  zipcode: string;
-  forecast: Forecast;
+  protected readonly forecastStore = inject(ForecastStore);
 
-  constructor(protected weatherService: WeatherService, route : ActivatedRoute) {
-    route.params.subscribe(params => {
-      this.zipcode = params['zipcode'];
-      weatherService.getForecast(this.zipcode)
-        .subscribe(data => this.forecast = data);
-    });
-  }
+  protected forecast: Signal<Forecast> = this.forecastStore.forecast
 }
+

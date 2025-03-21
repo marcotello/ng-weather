@@ -7,10 +7,10 @@ import {CurrentConditionsStore} from '../store/current-conditions.store';
 })
 export class ZipcodeEntryComponent {
 
-  private readonly locationStore = inject(CurrentConditionsStore);
+  private readonly CurrentConditionsStore = inject(CurrentConditionsStore);
 
   addLocation(zipcode: string) {
-    this.locationStore.addLocation(zipcode);
+    this.CurrentConditionsStore.addLocation(zipcode);
   }
 
 }
