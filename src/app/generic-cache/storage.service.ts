@@ -29,11 +29,9 @@ export class StorageService<T> {
 
     const _value: CachedItem<T> = JSON.parse(value) as CachedItem<T>;
 
-    if (_value.expirationTimeInSeconds !== 'never') {
-      if (Date.now() - _value.timestamp > _value.expirationTimeInSeconds * 1000) {
-        localStorage.removeItem(key);
-        return null;
-      }
+    if (this.isItemExpired(_value)) {
+      localStorage.removeItem(key);
+      return null;
     }
 
     return _value.value
@@ -45,5 +43,12 @@ export class StorageService<T> {
 
   clear(): void {
     localStorage.clear();
+  }
+
+  private isItemExpired(value: CachedItem<T>): boolean {
+    if (value.expirationTimeInSeconds !== 'never') {
+      return Date.now() - value.timestamp > value.expirationTimeInSeconds * 1000;
+    }
+    return false;
   }
 }
