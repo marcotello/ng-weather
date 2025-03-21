@@ -1,8 +1,4 @@
 import { Injectable } from '@angular/core';
-import {CachedItem} from './types/cached-item.type';
-import {ExpirationTime} from './types/expiration-time.type';
-import {environment} from '../../environments/environment';
-import {neverExpire} from './types/no-expiration.type';
 
 @Injectable({
   providedIn: 'root'

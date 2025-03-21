@@ -6,7 +6,7 @@ import {CurrentConditions} from '../model/current-conditions.type';
 import {Forecast} from '../forecasts-list/forecast.type';
 import {map} from 'rxjs/operators';
 import {DataCache} from '../generic-cache/data-cache.decorator';
-import {StorageService} from '../generic-cache/storage.service';
+import {LocalStorageCacheService} from '../generic-cache/local-storage-cache.service';
 
 @Injectable()
 export class WeatherService {
@@ -15,7 +15,7 @@ export class WeatherService {
     static readonly APPID = '5a4b2d457ecbef9eb2a71e480b947604';
     static readonly ICON_URL = 'https://raw.githubusercontent.com/udacity/Sunshine-Version-2/sunshine_master/app/src/main/res/drawable-hdpi/';
 
-    constructor(private readonly http: HttpClient, public storageService: StorageService) {}
+    constructor(private readonly http: HttpClient, public localStorageCacheService: LocalStorageCacheService) {}
 
     @DataCache({withArgs: true})
     addCurrentConditions(zipcode: string): Observable<CurrentConditions> {

@@ -17,6 +17,6 @@ export class LocationStorageService {
   }
 
   saveLocationsToStorage(locations: ConditionsAndZip[]): void {
-    this.storageService.setItem<ConditionsAndZip[]>(LOCATIONS, locations, neverExpire);
+    this.storageService.setItem<ConditionsAndZip[]>(LOCATIONS, locations);
   }
 }

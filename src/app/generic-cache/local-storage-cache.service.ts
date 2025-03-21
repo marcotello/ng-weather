@@ -22,7 +22,7 @@ export class LocalStorageCacheService implements ICache {
       expirationTimeInSeconds: expirationTimeInSeconds,
       timestamp: Date.now(),
     };
-
+    console.log(`Cache set for key: ${key}`);
     this.storageService.setItem(key, _value);
   }
 
@@ -39,7 +39,7 @@ export class LocalStorageCacheService implements ICache {
       this.removeCache(key);
       return null;
     }
-
+    console.log(`getCache for key: ${key}`);
     return _value.value
   }
 

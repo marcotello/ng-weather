@@ -1,6 +1,6 @@
-import {StorageService} from '../storage.service';
+import {LocalStorageCacheService} from '../local-storage-cache.service';
 
 
-export interface Storage {
-    storageService: StorageService;
+export interface CacheStorage {
+    localStorageCacheService: LocalStorageCacheService;
 }
