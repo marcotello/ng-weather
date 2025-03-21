@@ -16,10 +16,8 @@ export function DataCache<T extends Storage>(options: Partial<CacheOptions>) {
             const cachedData: any = this.storageService.getItem(key);
 
             if (cachedData) {
-                console.log(`Retrieving data from cache: ${cacheKey}`);
                 return of(cachedData);
             } else {
-                console.log(`Fetching data from storage: ${cacheKey}`);
                 return originalMethod.apply(this, args).pipe(
                     tap((response) => {
                         console.log(`Saving data to storage: ${cacheKey}`);

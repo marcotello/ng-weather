@@ -12,6 +12,7 @@ export class StorageService {
   setItem<T>(key: string,
           value: T,
           expirationTimeInSeconds: ExpirationTime = environment.genericCache.expirationTimeInSeconds): void {
+
     const _value: CachedItem<T> = {
       value,
       expirationTimeInSeconds: expirationTimeInSeconds,
