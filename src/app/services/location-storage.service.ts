@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {StorageService} from './storage.service';
-import {ConditionsAndZip} from '../model/conditions-and-zip.type';
+import {ConditionsAndZip} from '../current-conditions/conditions-and-zip.type';
 import {neverExpire} from '../generic-cache/types/no-expiration.type';
 
 export const LOCATIONS = 'locations'

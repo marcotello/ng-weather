@@ -1,5 +1,5 @@
 import {patchState, signalStore, withComputed, withHooks, withMethods, withState} from '@ngrx/signals';
-import {ConditionsAndZip} from '../model/conditions-and-zip.type';
+import {ConditionsAndZip} from '../current-conditions/conditions-and-zip.type';
 import {computed, effect, inject} from '@angular/core';
 import {LocationStorageService} from '../services/location-storage.service';
 import {rxMethod} from '@ngrx/signals/rxjs-interop';
@@ -7,7 +7,7 @@ import {tapResponse} from '@ngrx/operators';
 import {WeatherService} from '../services/weather.service';
 import {pipe} from 'rxjs';
 import {mergeMap, switchMap} from 'rxjs/operators';
-import {CurrentConditions} from '../model/current-conditions.type';
+import {CurrentConditions} from '../current-conditions/current-conditions.type';
 import {LocalStorageCacheService} from '../generic-cache/local-storage-cache.service';
 
 interface LocationState {
@@ -18,7 +18,7 @@ const initialState: LocationState = {
     locations: []
 };
 
-export const LocationStore = signalStore(
+export const CurrentConditionsStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
     withComputed((state) => ({

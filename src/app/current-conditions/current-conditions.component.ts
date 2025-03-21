@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {ConditionsAndZip} from '../model/conditions-and-zip.type';
+import {ConditionsAndZip} from './conditions-and-zip.type';
 
 @Component({
   selector: 'app-current-conditions',
