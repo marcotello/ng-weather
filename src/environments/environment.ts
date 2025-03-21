@@ -6,6 +6,6 @@
 export const environment = {
   production: false,
   genericCache: {
-    expirationTimeInSeconds: 10
+    expirationTimeInSeconds: 20
   }
 };
