@@ -9,34 +9,19 @@ import {neverExpire} from './types/no-expiration.type';
 })
 export class StorageService {
 
-  setItem<T>(key: string,
-          value: T,
-          expirationTimeInSeconds: ExpirationTime = environment.genericCache.expirationTimeInSeconds): void {
+  setItem<T>(key: string, value: T): void {
 
-    const _value: CachedItem<T> = {
-      value,
-      expirationTimeInSeconds: expirationTimeInSeconds,
-      timestamp: Date.now(),
-    };
-
-    localStorage.setItem(key, JSON.stringify(_value));
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
   getItem<T>(key: string): T | null {
-    const value = localStorage.getItem(key) ?? '[]';
+    const value = localStorage.getItem(key);
 
     if (!value) {
       return null;
     }
 
-    const _value: CachedItem<T> = JSON.parse(value) as CachedItem<T>;
-
-    if (this.isItemExpired(_value)) {
-      localStorage.removeItem(key);
-      return null;
-    }
-
-    return _value.value
+    return JSON.parse(value) as T;
   }
 
   removeItem(key: string) {
@@ -47,10 +32,11 @@ export class StorageService {
     localStorage.clear();
   }
 
-  private isItemExpired<T>(value: CachedItem<T>): boolean {
-    if (value.expirationTimeInSeconds !== neverExpire) {
-      return Date.now() - value.timestamp > value.expirationTimeInSeconds * 1000;
-    }
-    return false;
+  containsKey(key: string): boolean {
+    return localStorage.getItem(key) !== null;
+  }
+
+  getAllKeys(): string[] {
+    return Array.from(localStorage.keys());
   }
 }
