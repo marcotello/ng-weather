@@ -89,8 +89,13 @@ export const CurrentConditionsStore = signalStore(
         onInit(store,
                locationStorageService = inject(LocationStorageService),
                localStorageCacheService = inject(LocalStorageCacheService)) {
+
+            // This effect saves the current locations to local storage whenever
+            // there's a change (Add or remove locations).
             effect(() => locationStorageService.saveLocationsToStorage(store.locations()));
 
+            // This effect tracks when there's a deleted location event and clears the cache
+            // for the specific zipcode.
             let previousZips: string[] = [];
 
             effect(() => {
@@ -107,6 +112,8 @@ export const CurrentConditionsStore = signalStore(
                 previousZips = [...currentZips];
             });
 
+            // Loads all locations when the application starts from
+            // local storage and get the latest data in case the cache is expired.
             store.loadAllLocations();
         }
     })
