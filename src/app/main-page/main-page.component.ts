@@ -17,7 +17,7 @@ export class MainPageComponent {
 
   showForecast(zipcode: string) {
     this.forecastStore.getForecast(zipcode);
-    this.router.navigate(['/forecast', zipcode])
+    this.router.navigate(['/forecast', zipcode]);
   }
 
   removeLocation(zipcode: string) {

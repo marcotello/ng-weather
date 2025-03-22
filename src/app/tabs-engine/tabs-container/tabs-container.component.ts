@@ -34,6 +34,7 @@ export class TabsContainerComponent implements AfterContentInit {
                 startWith(0)
             )
             .subscribe(change => {
+                console.log('Active tab changed:', change);
                 this.selectTab(this.tabs.last);
             });
     }

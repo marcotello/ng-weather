@@ -9,8 +9,10 @@ export class ZipcodeEntryComponent {
 
   private readonly CurrentConditionsStore = inject(CurrentConditionsStore);
 
-  addLocation(zipcode: string) {
-    this.CurrentConditionsStore.addLocation(zipcode);
+  addLocation(zipcodeInput: HTMLInputElement) {
+    this.CurrentConditionsStore.addLocation(zipcodeInput.value);
+
+    zipcodeInput.value = '';
   }
 
 }
