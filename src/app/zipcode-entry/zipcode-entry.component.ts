@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {LocationStore} from '../store/location.store';
+import {CurrentConditionsStore} from '../store/current-conditions.store';
 
 @Component({
   selector: 'app-zipcode-entry',
@@ -7,10 +7,12 @@ import {LocationStore} from '../store/location.store';
 })
 export class ZipcodeEntryComponent {
 
-  private readonly locationStore = inject(LocationStore);
+  private readonly CurrentConditionsStore = inject(CurrentConditionsStore);
 
-  addLocation(zipcode: string) {
-    this.locationStore.addLocation(zipcode);
+  addLocation(zipcodeInput: HTMLInputElement) {
+    this.CurrentConditionsStore.addLocation(zipcodeInput.value);
+
+    zipcodeInput.value = '';
   }
 
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {HttpClient} from '@angular/common/http';
-import {CurrentConditions} from '../model/current-conditions.type';
+import {CurrentConditions} from '../current-conditions/current-conditions.type';
 import {Forecast} from '../forecasts-list/forecast.type';
 import {map} from 'rxjs/operators';
 import {DataCache} from '../generic-cache/data-cache.decorator';
@@ -32,7 +32,11 @@ export class WeatherService {
     @DataCache({withArgs: true})
     getForecast(zipcode: string): Observable<Forecast> {
         // Here we make a request to get the forecast data from the API. Note the use of backticks and an expression to insert the zipcode
-        return this.http.get<Forecast>(`${WeatherService.URL}/forecast/daily?zip=${zipcode},us&units=imperial&cnt=5&APPID=${WeatherService.APPID}`);
+        return this.http.get<Forecast>(`${WeatherService.URL}/forecast/daily?zip=${zipcode},us&units=imperial&cnt=5&APPID=${WeatherService.APPID}`)
+            .pipe(map(data => {
+                data.list.forEach(item => item.weatherIcon = this.getWeatherIcon(item.weather[0].id));
+                return data;
+            }));
 
     }
 

@@ -9,8 +9,8 @@ import {ChangeDetectionStrategy, Component, Input, signal} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabComponent {
+  // Using a signal to control when the tab is active and it can display content
   private isActive = signal<boolean>(false);
-
   isActiveSignal = this.isActive.asReadonly();
 
   @Input({ required: true }) tabId: string;

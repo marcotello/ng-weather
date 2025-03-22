@@ -22,7 +22,7 @@ export class LocalStorageCacheService implements ICache {
       expirationTimeInSeconds: expirationTimeInSeconds,
       timestamp: Date.now(),
     };
-    console.log(`Cache set for key: ${key}`);
+
     this.storageService.setItem(key, _value);
   }
 
@@ -35,11 +35,12 @@ export class LocalStorageCacheService implements ICache {
 
     const _value: CachedItem<T> = value as CachedItem<T>;
 
+    // If the item has expired, remove it from the cache and return null
     if (this.isItemExpired(_value)) {
       this.removeCache(key);
       return null;
     }
-    console.log(`getCache for key: ${key}`);
+
     return _value.value
   }
 
@@ -73,6 +74,7 @@ export class LocalStorageCacheService implements ICache {
     }
   }
 
+  // This method will check if an item has expired based on its expiration time located in the configuration.
   private isItemExpired<T>(value: CachedItem<T>): boolean {
     if (value.expirationTimeInSeconds !== neverExpire) {
       return Date.now() - value.timestamp > value.expirationTimeInSeconds * 1000;

@@ -35,6 +35,7 @@ export interface List {
     clouds:     number;
     pop:        number;
     rain?:      number;
+    weatherIcon?: string;
 }
 
 export interface FeelsLike {
